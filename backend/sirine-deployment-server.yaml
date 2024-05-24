@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sirine-server
+  namespace: sirine
+  labels:
+    app: sirine-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sirine-server  # Doit correspondre aux labels du template
+  template:
+    metadata:
+      labels:
+        app: sirine-server  # Doit correspondre aux labels du sélecteur
+    spec:
+      containers:
+        - name: sirine-server
+          image: rinasi26/dockerfiles
+          ports:
+            - containerPort: 5432
+          env:
+            - name: PORT
+              value: '5432'
+            - name: PGHOST
+              value: ''
+            - name: PORT
+              value: '4040'
+            - name: PGUSER
+              value: 'count'
+            - name: PGDATABASE
+              value: 'count'
+            - name: PGPORT
+              value: '5432'
+            - name: PGPASSWORD
+              value: 'count'
+            - name: RABBITMQ_URL
+              value: 'amqp://localhost:5672'
+            - name: QUEUE
+              value: 'count'
+
